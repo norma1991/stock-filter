@@ -27,12 +27,12 @@ jobs:
       - name: Send result via email
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.qq.com
+          server_address: smtp.163.com
           server_port: 465
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
           subject: 股票筛选结果
-          to: hemeng202112@163.com   # 例如 13800138000@139.com
-          from: 你的QQ邮箱
+          to: hemeng202112@163.com
+          from: hemeng202112@163.com
           body: 今日筛选结果见附件
           attachments: selected_stocks.csv
