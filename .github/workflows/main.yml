@@ -1,0 +1,38 @@
+name: Daily Stock Filter
+
+on:
+  schedule:
+    - cron: '30 6 * * *'   # 注意：这里是 UTC 时间，对应北京时间 14:30（因为 UTC+8）
+  workflow_dispatch:        # 允许手动触发
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install akshare pandas
+
+      - name: Run filter script
+        run: python stock_filter.py
+
+      - name: Send result via email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.qq.com
+          server_port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: 股票筛选结果
+          to: hemeng202112@163.com   
+          from: 1157420634@qq.com
+          body: 今日筛选结果见附件
+          attachments: selected_stocks.csv
