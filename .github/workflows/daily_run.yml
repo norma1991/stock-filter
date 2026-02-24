@@ -33,6 +33,6 @@ jobs:
           password: ${{secrets.MAIL_PASSWORD}}
           subject: 股票筛选结果
           to: hemeng202112@163.com
-          from: hemeng202112@163.com
+          from: 1157420634@qq.com
           body: 今日筛选结果见附件
           attachments: selected_stocks.csv
